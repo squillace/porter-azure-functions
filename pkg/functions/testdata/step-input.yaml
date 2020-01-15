@@ -1,0 +1,10 @@
+install:
+  - functions:
+      description: "Summon Minion"
+      arguments:
+      - "man-e-faces"
+      flags:
+        species: "human"
+      outputs:
+        - name: "VICTORY"
+          jsonPath: "$Id"

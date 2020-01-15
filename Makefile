@@ -1,5 +1,5 @@
-MIXIN = skeletor
-PKG = get.porter.sh/mixin/$(MIXIN)
+MIXIN = functions
+PKG = github.com/squillace/porter-azure-functions
 SHELL = bash
 
 PORTER_HOME ?= $(HOME)/.porter
@@ -113,4 +113,4 @@ clean: clean-packr
 	-rm -fr bin/
 
 clean-packr: packr2
-	cd pkg/skeletor && packr2 clean
+	cd pkg/functions && packr2 clean
