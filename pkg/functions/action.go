@@ -55,7 +55,7 @@ type Step struct {
 }
 
 func (s Step) GetCommand() string {
-	return "functions"
+	return "func"
 }
 
 func (s Step) GetArguments() []string {
