@@ -19,15 +19,15 @@ import "fmt"
 func (m *Mixin) Build() error {
 
 	fmt.Fprintln(m.Out, `RUN apt-get update`)
-	fmt.Fprintln(m.Out, `RUN apt-get install -y curl gnupg gnupg2 apt-transport-https`)
-	//fmt.Fprintln(m.Out, `RUN apt-get install -y `)
-	fmt.Fprintln(m.Out, `RUN curl https://packages.microsoft.com/keys/microsoft.asc -o foo.asc`)
-	fmt.Fprintln(m.Out, `RUN gpg foo.asc > microsoft.gpg`)
-	fmt.Fprintln(m.Out, `RUN mv microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg`)
-	fmt.Fprintln(m.Out, `RUN echo "deb [arch=amd64] https://packages.microsoft.com/debian/9/prod stretch main" > /etc/apt/sources.list.d/dotnetdev.list`)
-	//fmt.Fprintln(m.Out, `RUN cat /etc/apt/sources.list.d`)
+	fmt.Fprintln(m.Out, `RUN apt-get install -y wget gnupg gnupg2 apt-transport-https`)
+	fmt.Fprintln(m.Out, `RUN wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.asc.gpg`)
+	fmt.Fprintln(m.Out, `RUN mv microsoft.asc.gpg /etc/apt/trusted.gpg.d/`)
+	fmt.Fprintln(m.Out, `RUN wget -q https://packages.microsoft.com/config/debian/9/prod.list`)
+	fmt.Fprintln(m.Out, `RUN mv prod.list /etc/apt/sources.list.d/microsoft-prod.list`)
+	fmt.Fprintln(m.Out, `RUN chown root:root /etc/apt/trusted.gpg.d/microsoft.asc.gpg`)
+	fmt.Fprintln(m.Out, `RUN chown root:root /etc/apt/sources.list.d/microsoft-prod.list`)
 	fmt.Fprintln(m.Out, `RUN apt-get update`)
-	fmt.Fprintln(m.Out, `RUN apt-get install -y --allow-unauthenticated azure-functions-core-tools`)
+	fmt.Fprintln(m.Out, `RUN apt-get install -y azure-functions-core-tools`)
 
 	return nil
 }
